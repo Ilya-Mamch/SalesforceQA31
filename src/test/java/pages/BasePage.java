@@ -8,11 +8,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class BasePage {
+public abstract class BasePage {
+
     WebDriver driver;
     WebDriverWait wait;
     public final String BASE_URL = "https://tms9-dev-ed.develop.my.salesforce.com/";
     public final String MAIN_URL = "https://tms9-dev-ed.develop.lightning.force.com/lightning/setup/SetupOneHome/home";
+    public final String NEW_ACCOUNT_URL = BASE_URL + "lightning/o/Account/new";
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
@@ -33,4 +35,7 @@ public class BasePage {
             }
         };
     }
+
+    public abstract BasePage isPageOpened();
+//    public abstract BasePage open();
 }

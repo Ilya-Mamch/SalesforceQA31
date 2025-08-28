@@ -17,17 +17,33 @@ public class LoginPage extends BasePage {
     }
 
     @Step("Открытие страницы LoginPage")
-    public void open() {
+    public LoginPage open() {
         driver.get(BASE_URL);
         wait.until(ExpectedConditions.visibilityOfElementLocated(LOGIN_BUTTON));
+        return this;
     }
 
     @Step("Вход в магазин SauceDemo с именем пользователя: '{user}' и паролем: '{password}'")
-    public void login(String user, String password){
+    public MainPage login(String user, String password) {
         driver.findElement(USERNAME_INPUT).sendKeys(user);
         driver.findElement(PASSWORD_INPUT).sendKeys(password);
         driver.findElement(LOGIN_BUTTON).click();
         AllureUtils.takeScreenshot(driver);
+        return new MainPage(driver);
+    }
+
+    @Override
+    public LoginPage isPageOpened() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(USERNAME_INPUT));
+        return this;
+    }
+
+    public LoginPage negativeLogin(String user, String password) {
+        driver.findElement(USERNAME_INPUT).sendKeys(user);
+        driver.findElement(PASSWORD_INPUT).sendKeys(password);
+        driver.findElement(LOGIN_BUTTON).click();
+        AllureUtils.takeScreenshot(driver);
+        return this;
     }
 
     @Step("Сообщение об ошибке")

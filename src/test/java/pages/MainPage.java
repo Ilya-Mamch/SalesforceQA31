@@ -13,8 +13,14 @@ public class MainPage extends BasePage {
     }
 
     @Step("Открыть main страницу")
-    public void openMain(){
+    public MainPage openMain() {
         driver.get(MAIN_URL);
         wait.until(ExpectedConditions.visibilityOfElementLocated(CREATE_BUTTON));
+        return this;
+    }
+
+    public MainPage isPageOpened() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(CREATE_BUTTON));
+        return this;
     }
 }

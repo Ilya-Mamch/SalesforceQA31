@@ -16,8 +16,8 @@ public class CheckBox {
     }
 
     public void pick(boolean value) {
-        WebElement checkbox = driver.findElement(By.xpath(String.format("//*[text()='%s']" +
-                "/ancestor::*[self::span]/..//input[@type='checkbox']", label)));
+        WebElement checkbox = driver.findElement(By.xpath(String.format("//*[text()='%s']//ancestor::lightning-input" +
+                "//input[@type='checkbox']", label)));
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].scrollIntoView({block: 'center'});", checkbox);
         if (checkbox.isSelected() != value) {

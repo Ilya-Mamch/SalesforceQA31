@@ -7,7 +7,11 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
+import pages.AccountListPage;
+import pages.LoginPage;
 import pages.NewAccountModal;
+import steps.AccountStep;
+import steps.LoginStep;
 
 import java.time.Duration;
 import java.util.HashMap;
@@ -16,6 +20,10 @@ import java.util.HashMap;
 public class BaseTest {
     WebDriver driver;
     NewAccountModal newAccountModal;
+    LoginPage loginPage;
+    AccountListPage accountListPage;
+    LoginStep loginStep;
+    AccountStep accountStep;
 
     @Parameters({"browser"})
     @BeforeMethod(description = "Настройка браузера", alwaysRun = true)
@@ -40,6 +48,10 @@ public class BaseTest {
         }
 
         newAccountModal = new NewAccountModal(driver);
+        loginPage = new LoginPage(driver);
+        accountListPage = new AccountListPage(driver);
+        accountStep = new AccountStep(driver);
+        loginStep = new LoginStep(driver);
 
         context.setAttribute("driver", driver);
     }
