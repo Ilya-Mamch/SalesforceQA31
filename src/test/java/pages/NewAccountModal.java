@@ -2,14 +2,18 @@ package pages;
 
 import dto.Account;
 import io.qameta.allure.Step;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Assert;
 import wrappers.CheckBox;
 import wrappers.Input;
 import wrappers.Picklist;
 import wrappers.TextArea;
 
+@Log4j2
 public class NewAccountModal extends BasePage {
 
     private final By BUTTON = By.xpath("//button[@name='SaveEdit']");
@@ -47,7 +51,12 @@ public class NewAccountModal extends BasePage {
 
     @Step("New account_page is opened")
     public NewAccountModal isPageOpened() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(BUTTON));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(BUTTON));
+        } catch (TimeoutException e) {
+            log.error(e.getMessage());
+            Assert.fail("Page isn't opened");
+        }
         return this;
     }
 

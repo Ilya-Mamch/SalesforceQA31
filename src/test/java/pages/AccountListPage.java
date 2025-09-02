@@ -1,9 +1,13 @@
 package pages;
 
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Assert;
 
+@Log4j2
 public class AccountListPage extends BasePage{
 
     public AccountListPage(WebDriver driver) {
@@ -17,7 +21,12 @@ public class AccountListPage extends BasePage{
 
     @Override
     public AccountListPage isPageOpened(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@title='New']")));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@title='New']")));
+        } catch (TimeoutException e) {
+            log.error(e.getMessage());
+            Assert.fail("Page isn't opened");
+        }
         return this;
     }
 

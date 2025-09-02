@@ -38,7 +38,7 @@ public class BaseTest {
             options.addArguments("--disable-notifications");
             options.addArguments("--disable-popup-blocking");
             options.addArguments("--disable-infobars");
-            driver = new ChromeDriver(options);
+            driver = DriverManager.getDriver();
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
             driver.manage().window().maximize();
         } else if (browser.equalsIgnoreCase("firefox")) {
@@ -61,6 +61,6 @@ public class BaseTest {
         if (ITestResult.FAILURE == result.getStatus()) {
             AllureUtils.takeScreenshot(driver);
         }
-        driver.quit();
+        DriverManager.quitDriver();
     }
 }

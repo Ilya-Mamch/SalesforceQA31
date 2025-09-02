@@ -1,10 +1,14 @@
 package pages;
 
 import io.qameta.allure.Step;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Assert;
 
+@Log4j2
 public class AccountPage extends BasePage {
 
     private final By MESSAGE = By.cssSelector("div[data-key='success']");
@@ -15,7 +19,12 @@ public class AccountPage extends BasePage {
 
     @Step("AccountPage is opened")
     public AccountPage isPageOpened() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(MESSAGE));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(MESSAGE));
+        } catch (TimeoutException e) {
+            log.error(e.getMessage());
+            Assert.fail("Page isn't opened");
+        }
         return this;
     }
 
